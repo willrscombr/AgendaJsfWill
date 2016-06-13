@@ -5,6 +5,7 @@ public class Contato {
 	private Integer id;
 	private String nome;
 	private String telefone;
+	private String endereco;
 	private String cidade;
 	private String estado;
 	public Integer getId() {
@@ -24,6 +25,12 @@ public class Contato {
 	}
 	public void setTelefone(String telefone) {
 		this.telefone = telefone;
+	}
+	public String getEndereco() {
+		return endereco;
+	}
+	public void setEndereco(String endereco) {
+		this.endereco = endereco;
 	}
 	public String getCidade() {
 		return cidade;

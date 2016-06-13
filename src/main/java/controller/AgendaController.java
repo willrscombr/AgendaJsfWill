@@ -7,11 +7,13 @@ import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
+import javax.faces.bean.ViewScoped;
 import javax.faces.event.NamedEvent;
 
 import model.Contato;
 
 @ManagedBean(name="agendaController")
+@ViewScoped
 public class AgendaController implements Serializable {
 	
 	private List<Contato> lista = new ArrayList<>();
@@ -30,6 +32,7 @@ public class AgendaController implements Serializable {
 			contato.setId(j);
 			contato.setNome("Wilton");
 			contato.setTelefone("064992345905");
+			contato.setEndereco("Rua 7 de Setembro nº 173");
 			contato.setCidade("Iporá");
 			contato.setEstado("GO");
 			lista.add(contato);
@@ -58,6 +61,9 @@ public class AgendaController implements Serializable {
 
 	public void salvarContato(){
 		System.out.println(this.contato.getNome());
+	}
+	public void selecionarUmContato(Contato contato){
+		this.contato = contato;
 	}
 
 }

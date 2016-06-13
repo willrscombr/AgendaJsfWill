@@ -12,7 +12,7 @@
 <h:body>
 <script type="text/javascript">
 $(document).ready(function(){
-    //alert('foi');
+    alert('foi');
     $('#lista').click(function(){
     	$('#list').removeClass('hide');
     	$('#form').addClass('hide');
@@ -23,13 +23,19 @@ $('#contato').click(function(){
 	$('#form').removeClass('hide');
 	//alert('form');
   });
+  $('#linkalterar').click(function(){
+	  //rcalterar();
+	  $('#contato').trigger('click');
+	  
+	alert('foi4');
+	});
   });
 
 </script>
 
 	<div class="container">
 		<nav>
-			<div class="nav-wrapper blue lighten-2">
+			<div class="nav-wrapper orange lighten-2">
 				<a href="#" class="brand-logo">Logo</a>
 				<ul id="nav-mobile" class="right hide-on-med-and-down">
 					<li><a href="sass.html">Sass</a></li>
@@ -49,15 +55,17 @@ $('#contato').click(function(){
       		</div>
 			
 			<p:panel id="list" style="border: none;">
-			
-			<h:dataTable value="#{agendaController.lista}" var="contato" styleClass="highlight centered responsive-table" rows="5"  >
+			<h:form id="formlista">
+			<h:dataTable id="listaContatos" value="#{agendaController.lista}" var="contato" styleClass="highlight centered responsive-table" rows="5" 
+			 >
+			 <p:remoteCommand name="rcalterar" actionListener="#{agendaController.selecionarUmContato(contato)}"/>
 				<h:column >
 					<f:facet name="header">Id:</f:facet>
 					<h:outputText value="#{contato.id}" />
 				</h:column>
 				<h:column headerText="Nome:">
 					<f:facet name="header">Nome:</f:facet>
-					<h:outputText value="#{contato.nome}" />
+					<a href="#" id="linkalterar"><h:outputText value="#{contato.nome}" /></a>
 				</h:column>
 				<h:column headerText="Telefone:">
 					<f:facet name="header">Telefone:</f:facet>
@@ -69,20 +77,21 @@ $('#contato').click(function(){
 				</h:column>
 				
 			</h:dataTable>
+			</h:form>
 			</p:panel>
 			
 			<p:panel id="form" style="border: none;" class="hide">
 			<h:form>
 				<h5>Nome:</h5>
-				<mp:input  label="" placeholder="Write here!" 	floatingPlaceholder="false" value="#{agendaController.contato.nome}"/>
+				<mp:input  label="" placeholder="Write here!" 	floatingPlaceholder="false" value="#{agendaController.contato.nome}" />
 				<h5>Telefone:</h5>
-				<mp:input label="" placeholder="Write here!" 	floatingPlaceholder="false"/>
+				<mp:input label="" placeholder="Write here!" 	floatingPlaceholder="false" value="#{agendaController.contato.telefone}" />
 				<h5>Endereço:</h5>
-				<mp:input label="" placeholder="Write here!" 	floatingPlaceholder="false"/>
+				<mp:input label="" placeholder="Write here!" 	floatingPlaceholder="false" value="#{agendaController.contato.endereco}"/>
 				<h5>Cidade:</h5>
-				<mp:input label="" placeholder="Write here!" 	floatingPlaceholder="false"/>
+				<mp:input label="" placeholder="Write here!" 	floatingPlaceholder="false" value="#{agendaController.contato.cidade}"/>
 				<h5>Estado:</h5>
-				<mp:input label="" placeholder="Write here!" 	floatingPlaceholder="false"/>
+				<mp:input label="" placeholder="Write here!" 	floatingPlaceholder="false" value="#{agendaController.contato.estado}"/>
 				<h:commandButton action="#{agendaController.salvarContato}" value="Salvar" />
 			</h:form>
 			</p:panel>

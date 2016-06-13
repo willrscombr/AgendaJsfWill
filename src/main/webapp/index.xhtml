@@ -8,26 +8,20 @@
 
 <h:head>
 
-	<!-- Compiled and minified CSS -->
-	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.6/css/materialize.min.css" />
-	<h:outputStylesheet library="css" name="stilo.css" />
-	<!-- Compiled and minified JavaScript -->
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.6/js/materialize.min.js"></script>
-	
 </h:head>
 <h:body>
 <script type="text/javascript">
 $(document).ready(function(){
-    alert('foi');
+    //alert('foi');
     $('#lista').click(function(){
     	$('#list').removeClass('hide');
     	$('#form').addClass('hide');
-		alert('lista');
+		//alert('lista');
     });
 $('#contato').click(function(){
 	$('#list').addClass('hide');
 	$('#form').removeClass('hide');
-	alert('form');
+	//alert('form');
   });
   });
 
@@ -55,39 +49,32 @@ $('#contato').click(function(){
       		</div>
 			
 			<p:panel id="list" style="border: none;">
-				<table>
-       			 <thead>
-          			<tr>
-          			  <th data-field="id">Cod:</th>
-		              <th data-field="nome">Nome:</th>
-		              <th data-field="telefone">Telefone:</th>
-		              <th data-field="cidade">Cidade:</th>
-         			</tr>
-       			 </thead>
-
-        		<tbody>
-          			<tr>
-			            <td>Alvin</td>
-			            <td>Eclair</td>
-			            <td>$0.87</td>
-		          	</tr>
-		         	<tr>
-			            <td>Alan</td>
-			            <td>Jellybean</td>
-			            <td>$3.76</td>
-          			</tr>
-          			<tr>
-			            <td>Jonathan</td>
-			            <td>Lollipop</td>
-			            <td>$7.00</td>
-         			</tr>
-        		</tbody>
-     		 </table>
+			
+			<h:dataTable value="#{agendaController.lista}" var="contato" styleClass="highlight centered responsive-table" rows="5"  >
+				<h:column >
+					<f:facet name="header">Id:</f:facet>
+					<h:outputText value="#{contato.id}" />
+				</h:column>
+				<h:column headerText="Nome:">
+					<f:facet name="header">Nome:</f:facet>
+					<h:outputText value="#{contato.nome}" />
+				</h:column>
+				<h:column headerText="Telefone:">
+					<f:facet name="header">Telefone:</f:facet>
+					<h:outputText value="#{contato.telefone}" />
+				</h:column>
+				<h:column headerText="Cidade:">
+					<f:facet name="header">Cidade/Estado:</f:facet>
+					<h:outputText value="#{contato.cidade} - #{contato.estado}" />
+				</h:column>
+				
+			</h:dataTable>
 			</p:panel>
 			
 			<p:panel id="form" style="border: none;" class="hide">
+			<h:form>
 				<h5>Nome:</h5>
-				<mp:input  label="" placeholder="Write here!" 	floatingPlaceholder="false"/>
+				<mp:input  label="" placeholder="Write here!" 	floatingPlaceholder="false" value="#{agendaController.contato.nome}"/>
 				<h5>Telefone:</h5>
 				<mp:input label="" placeholder="Write here!" 	floatingPlaceholder="false"/>
 				<h5>Endereço:</h5>
@@ -96,7 +83,8 @@ $('#contato').click(function(){
 				<mp:input label="" placeholder="Write here!" 	floatingPlaceholder="false"/>
 				<h5>Estado:</h5>
 				<mp:input label="" placeholder="Write here!" 	floatingPlaceholder="false"/>
-				
+				<h:commandButton action="#{agendaController.salvarContato}" value="Salvar" />
+			</h:form>
 			</p:panel>
 
 		</div>
@@ -110,7 +98,7 @@ $('#contato').click(function(){
 			<mp:fabItem icon="lock_open" update="pnlFirstIcon" />
 		</mp:fab>
 		<p:outputPanel layout="block" id="pnlFirstIcon" styleClass="text-center">
-			<mp:icon size="large" name="#{fabBean.firstIcon}"/>
+			<mp:icon size="large" name=""/>
 		</p:outputPanel>
 	</div>
 </div>

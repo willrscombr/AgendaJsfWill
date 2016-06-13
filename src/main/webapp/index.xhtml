@@ -1,0 +1,125 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:mp="http://primefaces.org/ui/material"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+
+	<!-- Compiled and minified CSS -->
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.6/css/materialize.min.css" />
+	<h:outputStylesheet library="css" name="stilo.css" />
+	<!-- Compiled and minified JavaScript -->
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.6/js/materialize.min.js"></script>
+	
+</h:head>
+<h:body>
+<script type="text/javascript">
+$(document).ready(function(){
+    alert('foi');
+    $('#lista').click(function(){
+    	$('#list').removeClass('hide');
+    	$('#form').addClass('hide');
+		alert('lista');
+    });
+$('#contato').click(function(){
+	$('#list').addClass('hide');
+	$('#form').removeClass('hide');
+	alert('form');
+  });
+  });
+
+</script>
+
+	<div class="container">
+		<nav>
+			<div class="nav-wrapper blue lighten-2">
+				<a href="#" class="brand-logo">Logo</a>
+				<ul id="nav-mobile" class="right hide-on-med-and-down">
+					<li><a href="sass.html">Sass</a></li>
+					<li><a href="badges.html">Components</a></li>
+					<li><a href="collapsible.html">JavaScript</a></li>
+				</ul>
+			</div>
+		</nav>
+		<div id="content">
+			<div class="row ">
+    			<div class="col s12">
+      				<ul class="tabs ">
+      					<li class="tab col s6"><a href="#" class="active blue-text text-darken-2" id="lista" >Lista</a></li>
+      					<li class="tab col s6"><a href="#" class="blue-text text-darken-2" id="contato" >Contato</a></li>
+      				</ul>
+      			</div>
+      		</div>
+			
+			<p:panel id="list" style="border: none;">
+				<table>
+       			 <thead>
+          			<tr>
+          			  <th data-field="id">Cod:</th>
+		              <th data-field="nome">Nome:</th>
+		              <th data-field="telefone">Telefone:</th>
+		              <th data-field="cidade">Cidade:</th>
+         			</tr>
+       			 </thead>
+
+        		<tbody>
+          			<tr>
+			            <td>Alvin</td>
+			            <td>Eclair</td>
+			            <td>$0.87</td>
+		          	</tr>
+		         	<tr>
+			            <td>Alan</td>
+			            <td>Jellybean</td>
+			            <td>$3.76</td>
+          			</tr>
+          			<tr>
+			            <td>Jonathan</td>
+			            <td>Lollipop</td>
+			            <td>$7.00</td>
+         			</tr>
+        		</tbody>
+     		 </table>
+			</p:panel>
+			
+			<p:panel id="form" style="border: none;" class="hide">
+				<h5>Nome:</h5>
+				<mp:input  label="" placeholder="Write here!" 	floatingPlaceholder="false"/>
+				<h5>Telefone:</h5>
+				<mp:input label="" placeholder="Write here!" 	floatingPlaceholder="false"/>
+				<h5>Endereço:</h5>
+				<mp:input label="" placeholder="Write here!" 	floatingPlaceholder="false"/>
+				<h5>Cidade:</h5>
+				<mp:input label="" placeholder="Write here!" 	floatingPlaceholder="false"/>
+				<h5>Estado:</h5>
+				<mp:input label="" placeholder="Write here!" 	floatingPlaceholder="false"/>
+				
+			</p:panel>
+
+		</div>
+		<footer>
+			<div class="row">
+	<div class="col s12">
+		
+		<mp:fab icon="mode_edit">
+			<mp:fabItem icon="android" update="pnlFirstIcon" />
+			<mp:fabItem icon="info" update="pnlFirstIcon"  />
+			<mp:fabItem icon="lock_open" update="pnlFirstIcon" />
+		</mp:fab>
+		<p:outputPanel layout="block" id="pnlFirstIcon" styleClass="text-center">
+			<mp:icon size="large" name="#{fabBean.firstIcon}"/>
+		</p:outputPanel>
+	</div>
+</div>
+		
+		</footer>
+	</div>
+
+
+
+
+</h:body>
+</html>

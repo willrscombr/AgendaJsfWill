@@ -10,13 +10,15 @@ import javax.faces.bean.RequestScoped;
 import javax.faces.bean.ViewScoped;
 import javax.faces.event.NamedEvent;
 
+import db.Contatodb;
+
 import model.Contato;
 
 @ManagedBean(name="agendaController")
 @ViewScoped
 public class AgendaController implements Serializable {
 	
-	private List<Contato> lista = new ArrayList<>();
+	private List<Contato> lista =  new ArrayList<>();
 	private Contato contato = new Contato();
 	
 	public AgendaController(){
@@ -26,8 +28,8 @@ public class AgendaController implements Serializable {
 	@PostConstruct
 	public void init(){
 		
-		Contato contato = null; 
-		for (int j = 1; j < 50; j++) {
+		//
+		/*for (int j = 1; j < 50; j++) {
 			contato = new Contato();
 			contato.setId(j);
 			contato.setNome("Wilton");
@@ -39,9 +41,9 @@ public class AgendaController implements Serializable {
 			
 		
 			
-		}
-		
-		System.out.println("Nome: "+lista.get(48).getNome());
+		}*/
+		lista = Contatodb.selectAll();
+		//System.out.println("Nome: "+lista.get(48).getNome());
 	}
 	
 	
@@ -59,8 +61,10 @@ public class AgendaController implements Serializable {
 	}
 
 
-	public void salvarContato(){
-		System.out.println(this.contato.getNome());
+	public String salvarContato(){
+		System.out.println("AgendaController.salvarContato()");
+		Contatodb.save(this.contato);
+		return "index.xhtml?faces-redirect=true";
 	}
 	public void selecionarUmContato(Contato contato){
 		this.contato = contato;

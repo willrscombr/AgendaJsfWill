@@ -8,6 +8,11 @@ public class Contato {
 	private String endereco;
 	private String cidade;
 	private String estado;
+	
+	public Contato(){
+		id = 0;
+	}
+	
 	public Integer getId() {
 		return id;
 	}

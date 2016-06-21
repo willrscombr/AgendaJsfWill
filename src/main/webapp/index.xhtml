@@ -86,7 +86,7 @@ $('#contato').click(function(){
 				</h:column>
 				<h:column>
 					<f:facet name="header">Ações</f:facet>
-					<p:commandLink value="Excluir" actionListener="#{agendaController.excluir(contato.id)}" ajax="true" update="listaContatos"
+					<p:commandLink value="Excluir" action="#{agendaController.excluir(contato.id)}" ajax="true" update="listaContatos"
 					>
 					 <p:confirm header="Exclusão" message="Deseja excluir o contato #{contato.nome} ?" icon="ui-icon-" />
 					</p:commandLink>
@@ -100,15 +100,15 @@ $('#contato').click(function(){
 			<p:panel id="form" style="border: none;" class="hide">
 			<h:form id="formcontato">
 				<h5>Nome:</h5>
-				<mp:input  label="" placeholder="Write here!" 	floatingPlaceholder="false" value="#{agendaController.contato.nome}" />
+				<mp:input  label="" placeholder="" 	floatingPlaceholder="false" value="#{agendaController.contato.nome}" />
 				<h5>Telefone:</h5>
-				<mp:input label="" placeholder="Write here!" 	floatingPlaceholder="false" value="#{agendaController.contato.telefone}" />
+				<mp:input label="" placeholder="" 	floatingPlaceholder="false" value="#{agendaController.contato.telefone}" />
 				<h5>Endereço:</h5>
-				<mp:input label="" placeholder="Write here!" 	floatingPlaceholder="false" value="#{agendaController.contato.endereco}"/>
+				<mp:input label="" placeholder="" 	floatingPlaceholder="false" value="#{agendaController.contato.endereco}"/>
 				<h5>Cidade:</h5>
-				<mp:input label="" placeholder="Write here!" 	floatingPlaceholder="false" value="#{agendaController.contato.cidade}"/>
+				<mp:input label="" placeholder="" 	floatingPlaceholder="false" value="#{agendaController.contato.cidade}"/>
 				<h5>Estado:</h5>
-				<mp:input label="" placeholder="Write here!" 	floatingPlaceholder="false" value="#{agendaController.contato.estado}"/>
+				<mp:input label="" placeholder="" 	floatingPlaceholder="false" value="#{agendaController.contato.estado}"/>
 				<mp:button action="#{agendaController.salvarContato}" value="salvar" ajax="true"/>
 				
 				<p:confirmDialog global="true" showEffect="fade" hideEffect="fade">

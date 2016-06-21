@@ -36,11 +36,11 @@ public class Contatodb {
 		
 	}
 	public static boolean alterar (Contato contato){
-		System.out.println("Contatodb.save()");
+		System.out.println("Contatodb.alterar()");
 		String sql = null;
 		
 		try {
-			sql = "update contato set nome = ?, telefone = ?, endereco = ?, cidade = ², estado = ?, where contato.id = ?";
+			sql = "update contato set nome = ?, telefone = ?, endereco = ?, cidade = ?, estado = ? where contato.id = ?";
 					
 			Connection con = Conexao.obterConecao();
 			PreparedStatement ps = con.prepareStatement(sql);
@@ -49,6 +49,7 @@ public class Contatodb {
 			ps.setString(3,contato.getEndereco());
 			ps.setString(4,contato.getCidade());
 			ps.setString(5,contato.getEstado());
+			ps.setInt(6,contato.getId());
 			ps.executeUpdate();
 			System.out.println("Salvo no banco de dados");
 			return true;

@@ -24,11 +24,12 @@ public class AgendaController implements Serializable {
 	private Contato contato = new Contato();
 	
 	public AgendaController(){
-		contato.setNome("teste");
+		
 	};
 	
 	@PostConstruct
 	public void init(){
+		this.contato.setId(0);
 		System.out.println("AgendaController.init()");
 				
 		lista = Contatodb.selectAll();
@@ -69,7 +70,16 @@ public class AgendaController implements Serializable {
 
 	public String salvarContato(){
 		System.out.println("AgendaController.salvarContato()");
-		Contatodb.save(this.contato);
+		try {
+			if(this.contato.getId().equals(0)){
+				Contatodb.save(this.contato);
+			}else{
+				Contatodb.alterar(this.contato);
+			}
+		} catch (Exception e) {
+			System.out.println("salvar contato controler: "+e.getMessage());
+		}
+		
 		lista = Contatodb.selectAll();
 		return "index.xhtml?faces-redirect=true";
 	}

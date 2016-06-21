@@ -40,8 +40,8 @@ public class Contatodb {
 		String sql = null;
 		
 		try {
-			sql = "Insert into contato(nome,telefone,endereco,cidade,estado) values"
-					+ " (?,?,?,?,?)";
+			sql = "update contato set nome = ?, telefone = ?, endereco = ?, cidade = ², estado = ?, where contato.id = ?";
+					
 			Connection con = Conexao.obterConecao();
 			PreparedStatement ps = con.prepareStatement(sql);
 			ps.setString(1,contato.getNome());
@@ -61,8 +61,33 @@ public class Contatodb {
 	}
 	
 	public static Contato find(Integer id){
+		try {
+			ResultSet rs = null;
+			Connection con = Conexao.obterConecao();
+			String sql = "select * from contato where contato.id = "+id;
+			PreparedStatement ps = con.prepareStatement(sql);
+			rs = ps.executeQuery(sql);
+			Contato contato = new Contato();
+			while(rs.next()){
+			System.out.println("contato: "+rs.getInt("id"));
+			contato.setId(rs.getInt("id"));
+			contato.setNome(rs.getString("nome"));
+			contato.setTelefone(rs.getString("telefone"));
+			contato.setEndereco(rs.getString("endereco"));
+			contato.setCidade(rs.getString("cidade"));
+			contato.setEstado(rs.getString("estado"));
+			}
+			return contato;
+		} catch (Exception e) {
+			System.err.println(e.getMessage());
+			return null;
+		}finally {
+			
+			
+		}
 		
-		return null;
+		
+		
 	}
 	
 	public static List<Contato> selectAll(){
@@ -97,6 +122,22 @@ public class Contatodb {
 			contato = null;
 		}
 		
+		
+	}
+	public static void excluir(Integer id) {
+		try {
+			Connection con = Conexao.obterConecao();
+			String sql = "delete from contato where contato.id = "+id;
+			PreparedStatement ps = con.prepareStatement(sql);
+			ps.execute();
+			System.out.println("excluido");
+		} catch (Exception e) {
+			System.err.println(e.getMessage());
+			
+		}finally {
+			
+			
+		}
 		
 	}
 }

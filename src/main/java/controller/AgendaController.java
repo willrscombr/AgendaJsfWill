@@ -13,6 +13,8 @@ import javax.faces.event.NamedEvent;
 import db.Contatodb;
 
 import model.Contato;
+import util.ParamToObjeto;
+import util.Parametro;
 
 @ManagedBean(name="agendaController")
 @ViewScoped
@@ -27,23 +29,12 @@ public class AgendaController implements Serializable {
 	
 	@PostConstruct
 	public void init(){
-		
-		//
-		/*for (int j = 1; j < 50; j++) {
-			contato = new Contato();
-			contato.setId(j);
-			contato.setNome("Wilton");
-			contato.setTelefone("064992345905");
-			contato.setEndereco("Rua 7 de Setembro nº 173");
-			contato.setCidade("Iporá");
-			contato.setEstado("GO");
-			lista.add(contato);
-			
-		
-			
-		}*/
+		System.out.println("AgendaController.init()");
+				
 		lista = Contatodb.selectAll();
-		//System.out.println("Nome: "+lista.get(48).getNome());
+		//acoesContato();
+		
+		
 	}
 	
 	
@@ -59,15 +50,35 @@ public class AgendaController implements Serializable {
 	public void setContato(Contato contato) {
 		this.contato = contato;
 	}
+	
+	public void acoesContato(){
+		System.out.println("AgendaController.acoesContato()");
+		try {
+		this.contato = (Contato) ParamToObjeto.getObject("alterar", "Contato");
+		System.out.println(this.contato.getId());
+		} catch (Exception e) {
+			System.err.println("acoesContato: "+e.getMessage());
+		}
+	}
+	
+	public void selecionar(Integer id){
+		this.contato = Contatodb.find(id);
+		System.out.println("Contato busc: "+this.contato.getNome());
+	}
 
 
 	public String salvarContato(){
 		System.out.println("AgendaController.salvarContato()");
 		Contatodb.save(this.contato);
+		lista = Contatodb.selectAll();
 		return "index.xhtml?faces-redirect=true";
 	}
 	public void selecionarUmContato(Contato contato){
 		this.contato = contato;
+	}
+	public String excluir(Integer id){
+		Contatodb.excluir(id);
+		return "index.xhtml?faces-redirect=true";
 	}
 
 }

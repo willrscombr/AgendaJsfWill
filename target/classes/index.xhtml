@@ -43,7 +43,7 @@ $('#contato').click(function(){
 
 	<div class="container">
 		<nav>
-			<div class="nav-wrapper orange lighten-2">
+			<div class="nav-wrapper blue lighten-2">
 				<a href="#" class="brand-logo">Logo</a>
 				<ul id="nav-mobile" class="right hide-on-med-and-down">
 					<li><a href="sass.html">Sass</a></li>
@@ -64,7 +64,7 @@ $('#contato').click(function(){
 			
 			<p:panel id="list" style="border: none;">
 			<h:form id="formlista">
-			<h:dataTable id="listaContatos" value="#{agendaController.lista}" var="contato" styleClass="highlight centered responsive-table" rows="5" 
+			<h:dataTable id="listaContatos" value="#{agendaController.lista}" var="contato" styleClass="highlight centered responsive-table"  
 			 >
 			 <p:remoteCommand name="rcalterar" actionListener="#{agendaController.selecionarUmContato(contato)}"/>
 				<h:column >
@@ -73,7 +73,8 @@ $('#contato').click(function(){
 				</h:column>
 				<h:column headerText="Nome:">
 					<f:facet name="header">Nome:</f:facet>
-					<a href="?alterar= #{contato.id}" id="linkalterar"><h:outputText value="#{contato.nome}" /></a>
+					<p:commandLink value="#{contato.nome}" actionListener="#{agendaController.selecionar(contato.id)}" ajax="true" update=":formcontato"
+					onclick="  $('#contato').trigger('click');" styleClass="black-text"/>
 				</h:column>
 				<h:column headerText="Telefone:">
 					<f:facet name="header">Telefone:</f:facet>
@@ -85,7 +86,10 @@ $('#contato').click(function(){
 				</h:column>
 				<h:column>
 					<f:facet name="header">Ações</f:facet>
-					<a href="?excluir= #{contato.id}" id="linkexcluir" >excluir</a>
+					<p:commandLink value="Excluir" actionListener="#{agendaController.excluir(contato.id)}" ajax="true" update="listaContatos"
+					>
+					 <p:confirm header="Exclusão" message="Deseja excluir o contato #{contato.nome} ?" icon="ui-icon-" />
+					</p:commandLink>
 					
 				</h:column>
 				
@@ -94,7 +98,7 @@ $('#contato').click(function(){
 			</p:panel>
 			
 			<p:panel id="form" style="border: none;" class="hide">
-			<h:form>
+			<h:form id="formcontato">
 				<h5>Nome:</h5>
 				<mp:input  label="" placeholder="Write here!" 	floatingPlaceholder="false" value="#{agendaController.contato.nome}" />
 				<h5>Telefone:</h5>
@@ -105,7 +109,13 @@ $('#contato').click(function(){
 				<mp:input label="" placeholder="Write here!" 	floatingPlaceholder="false" value="#{agendaController.contato.cidade}"/>
 				<h5>Estado:</h5>
 				<mp:input label="" placeholder="Write here!" 	floatingPlaceholder="false" value="#{agendaController.contato.estado}"/>
-				<p:commandButton action="#{agendaController.salvarContato}" value="Salvar"  ajax="true"/>
+				<mp:button action="#{agendaController.salvarContato}" value="salvar" ajax="true"/>
+				
+				<p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
+       				 <p:commandButton value="Sim" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" update="@form" />
+       				<p:commandButton value="Não" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+   				 </p:confirmDialog>
+				
 			</h:form>
 			</p:panel>
 

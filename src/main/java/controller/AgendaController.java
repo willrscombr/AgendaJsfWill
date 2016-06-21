@@ -12,7 +12,7 @@ import javax.faces.event.NamedEvent;
 
 import db.Contatodb;
 
-import model.Contato;
+import model.*;
 import util.ParamToObjeto;
 import util.Parametro;
 
@@ -89,6 +89,12 @@ public class AgendaController implements Serializable {
 	public String excluir(Integer id){
 		Contatodb.excluir(id);
 		return "index.xhtml?faces-redirect=true";
+	}
+	public void limpar(){
+		System.out.println("AgendaController.limpar()");
+		this.contato = new Contato();
+		contato.setId(0);
+		
 	}
 
 }

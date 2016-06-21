@@ -2,6 +2,7 @@ package util;
 
 
 import db.Contatodb;
+import util.Parametro;s
 
 
 public class ParamToObjeto {

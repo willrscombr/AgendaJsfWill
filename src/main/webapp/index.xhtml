@@ -46,9 +46,9 @@ $('#contato').click(function(){
 			<div class="nav-wrapper blue lighten-2">
 				<a href="#" class="brand-logo">Logo</a>
 				<ul id="nav-mobile" class="right hide-on-med-and-down">
-					<li><a href="sass.html">Sass</a></li>
-					<li><a href="badges.html">Components</a></li>
-					<li><a href="collapsible.html">JavaScript</a></li>
+					<li><a href="http://materializecss.com">Materialize Css</a></li>
+					<li><a href="http://www.materialprime.com/">MaterialPrime</a></li>
+					<li><a href="https://github.com/willtecti/AgendaJsfWill">GitHub</a></li>
 				</ul>
 			</div>
 		</nav>
@@ -97,7 +97,7 @@ $('#contato').click(function(){
 			</h:form>
 			</p:panel>
 			
-			<p:panel id="form" style="border: none;" class="hide">
+			<p:panel id="form" style="border: none;" class="hide" >
 			<h:form id="formcontato">
 				<h5>Nome:</h5>
 				<mp:input  label="" placeholder="" 	floatingPlaceholder="false" value="#{agendaController.contato.nome}" />
@@ -109,7 +109,19 @@ $('#contato').click(function(){
 				<mp:input label="" placeholder="" 	floatingPlaceholder="false" value="#{agendaController.contato.cidade}"/>
 				<h5>Estado:</h5>
 				<mp:input label="" placeholder="" 	floatingPlaceholder="false" value="#{agendaController.contato.estado}"/>
-				<mp:button action="#{agendaController.salvarContato}" value="salvar" ajax="true"/>
+				<div class="row">
+				<div class="col s3">
+					<mp:button action="#{agendaController.salvarContato}" value="salvar" ajax="true" 
+					styleClass="blue"/>
+				</div>
+				<div class="col s2">
+					<mp:button value="Limpar" action="#{agendaController.limpar}" ajax="true" update="@form" 
+					style="background:red;"/>
+				</div>
+				
+				
+				
+				</div>
 				
 				<p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
        				 <p:commandButton value="Sim" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" update="@form" />

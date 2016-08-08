@@ -8,27 +8,35 @@
 
 <h:head>
 
-	<!-- Compiled and minified CSS -->
-	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.6/css/materialize.min.css" />
-	<h:outputStylesheet library="css" name="stilo.css" />
-	<!-- Compiled and minified JavaScript -->
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.6/js/materialize.min.js"></script>
-	
 </h:head>
 <h:body>
 <script type="text/javascript">
 $(document).ready(function(){
-    alert('foi');
+    //alert('foi');
     $('#lista').click(function(){
     	$('#list').removeClass('hide');
     	$('#form').addClass('hide');
-		alert('lista');
+		//alert('lista');
     });
 $('#contato').click(function(){
 	$('#list').addClass('hide');
 	$('#form').removeClass('hide');
-	alert('form');
+	//alert('form');
   });
+  $('#linkalterar').click(function(){
+	  //rcalterar();
+	  $('#contato').trigger('click');
+	  
+	//alert('foi4');
+	});
+  
+  $('#linkexcluir').click(function(){
+	  //rcalterar();
+	  $('#contato').trigger('click');
+	  
+	//alert('foi4');
+	});
+  
   });
 
 </script>
@@ -38,9 +46,9 @@ $('#contato').click(function(){
 			<div class="nav-wrapper blue lighten-2">
 				<a href="#" class="brand-logo">Logo</a>
 				<ul id="nav-mobile" class="right hide-on-med-and-down">
-					<li><a href="sass.html">Sass</a></li>
-					<li><a href="badges.html">Components</a></li>
-					<li><a href="collapsible.html">JavaScript</a></li>
+					<li><a href="http://materializecss.com">Materialize Css</a></li>
+					<li><a href="http://www.materialprime.com/">MaterialPrime</a></li>
+					<li><a href="https://github.com/willtecti/AgendaJsfWill">GitHub</a></li>
 				</ul>
 			</div>
 		</nav>
@@ -55,48 +63,72 @@ $('#contato').click(function(){
       		</div>
 			
 			<p:panel id="list" style="border: none;">
-				<table>
-       			 <thead>
-          			<tr>
-          			  <th data-field="id">Cod:</th>
-		              <th data-field="nome">Nome:</th>
-		              <th data-field="telefone">Telefone:</th>
-		              <th data-field="cidade">Cidade:</th>
-         			</tr>
-       			 </thead>
-
-        		<tbody>
-          			<tr>
-			            <td>Alvin</td>
-			            <td>Eclair</td>
-			            <td>$0.87</td>
-		          	</tr>
-		         	<tr>
-			            <td>Alan</td>
-			            <td>Jellybean</td>
-			            <td>$3.76</td>
-          			</tr>
-          			<tr>
-			            <td>Jonathan</td>
-			            <td>Lollipop</td>
-			            <td>$7.00</td>
-         			</tr>
-        		</tbody>
-     		 </table>
+			<h:form id="formlista">
+			<h:dataTable id="listaContatos" value="#{agendaController.lista}" var="contato" styleClass="highlight centered responsive-table"  
+			 >
+			 <p:remoteCommand name="rcalterar" actionListener="#{agendaController.selecionarUmContato(contato)}"/>
+				<h:column >
+					<f:facet name="header">Id:</f:facet>
+					<h:outputText value="#{contato.id}" />
+				</h:column>
+				<h:column headerText="Nome:">
+					<f:facet name="header">Nome:</f:facet>
+					<p:commandLink value="#{contato.nome}" actionListener="#{agendaController.selecionar(contato.id)}" ajax="true" update=":formcontato"
+					onclick="  $('#contato').trigger('click');" styleClass="black-text"/>
+				</h:column>
+				<h:column headerText="Telefone:">
+					<f:facet name="header">Telefone:</f:facet>
+					<h:outputText value="#{contato.telefone}" />
+				</h:column>
+				<h:column headerText="Cidade:">
+					<f:facet name="header">Cidade/Estado:</f:facet>
+					<h:outputText value="#{contato.cidade} - #{contato.estado}" />
+				</h:column>
+				<h:column>
+					<f:facet name="header">Ações</f:facet>
+					<p:commandLink value="Excluir" action="#{agendaController.excluir(contato.id)}" ajax="true" update="listaContatos"
+					>
+					 <p:confirm header="Exclusão" message="Deseja excluir o contato #{contato.nome} ?" icon="ui-icon-" />
+					</p:commandLink>
+					
+				</h:column>
+				
+			</h:dataTable>
+			</h:form>
 			</p:panel>
 			
-			<p:panel id="form" style="border: none;" class="hide">
+			<p:panel id="form" style="border: none;" class="hide" >
+			<h:form id="formcontato">
 				<h5>Nome:</h5>
-				<mp:input  label="" placeholder="Write here!" 	floatingPlaceholder="false"/>
+				<mp:input  label="" placeholder="" 	floatingPlaceholder="false" value="#{agendaController.contato.nome}" />
 				<h5>Telefone:</h5>
-				<mp:input label="" placeholder="Write here!" 	floatingPlaceholder="false"/>
+				<mp:input label="" placeholder="" 	floatingPlaceholder="false" value="#{agendaController.contato.telefone}" />
 				<h5>Endereço:</h5>
-				<mp:input label="" placeholder="Write here!" 	floatingPlaceholder="false"/>
+				<mp:input label="" placeholder="" 	floatingPlaceholder="false" value="#{agendaController.contato.endereco}"/>
 				<h5>Cidade:</h5>
-				<mp:input label="" placeholder="Write here!" 	floatingPlaceholder="false"/>
+				<mp:input label="" placeholder="" 	floatingPlaceholder="false" value="#{agendaController.contato.cidade}"/>
 				<h5>Estado:</h5>
-				<mp:input label="" placeholder="Write here!" 	floatingPlaceholder="false"/>
+				<mp:input label="" placeholder="" 	floatingPlaceholder="false" value="#{agendaController.contato.estado}"/>
+				<div class="row">
+				<div class="col s3">
+					<mp:button action="#{agendaController.salvarContato}" value="salvar" ajax="true" 
+					styleClass="blue"/>
+				</div>
+				<div class="col s2">
+					<mp:button value="Limpar" action="#{agendaController.limpar}" ajax="true" update="@form" 
+					style="background:red;"/>
+				</div>
 				
+				
+				
+				</div>
+				
+				<p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
+       				 <p:commandButton value="Sim" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" update="@form" />
+       				<p:commandButton value="Não" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+   				 </p:confirmDialog>
+				
+			</h:form>
 			</p:panel>
 
 		</div>
@@ -110,7 +142,7 @@ $('#contato').click(function(){
 			<mp:fabItem icon="lock_open" update="pnlFirstIcon" />
 		</mp:fab>
 		<p:outputPanel layout="block" id="pnlFirstIcon" styleClass="text-center">
-			<mp:icon size="large" name="#{fabBean.firstIcon}"/>
+			<mp:icon size="large" name=""/>
 		</p:outputPanel>
 	</div>
 </div>

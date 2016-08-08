@@ -6,3 +6,12 @@
  body {
 	
 }
+.ui-state-default-none{
+	border: none;
+	background: transparent;
+	!important;
+}
+.ui-datatable-none{
+	border:none;
+	!important;
+}
